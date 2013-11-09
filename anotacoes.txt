@@ -1,13 +1,17 @@
 anotacoes
 ---------
 
-> criar estrutura do aplicativo
-> geocode reverso dos endereços inicial e final
-> carregar panorâmicas do traçado
-> circuito e código do arduino (velocidade, metros?)
-> conectar aplicativo com arduino
-> interface de velocidade no aplicativo
-> metragem percorrida no aplicativo
-> interface para iniciar percurso
-> interface de encerramento de percurso
+OK	> criar estrutura do aplicativo
+	> geocode reverso dos endereços inicial e final
+	> carregar panorâmicas do traçado
+	> circuito e código do arduino (velocidade, metros?)
+	> conectar aplicativo com arduino
+	> interface de velocidade no aplicativo
+	> metragem percorrida no aplicativo
+	> interface para iniciar percurso
+	> interface de encerramento de percurso
+
+PLUS:
+	> POV na bike
+
 
