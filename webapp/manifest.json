@@ -9,7 +9,7 @@
   },
   "icons": { "16": "img/bike-16.png", "128": "img/bike-128.png" },
 
-  "content_security_policy": "script-src 'self' https://www.google.com/jsapi https://www.google.com/uds/?file=earth&v=1 https://www.google.com/uds/api/earth/1.0/109c7b2bae7fe6cc34ea875176165d81/default.I.js; object-src 'self'",
 
-  "permissions": [ "serial", "<all_urls>" ]
+  "permissions": [ "serial", "<all_urls>" ],
+  "manifest_version": 2
 }
