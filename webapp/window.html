@@ -22,7 +22,7 @@ Author: Luis Leao (luisleao@gmail.com)
 <head>
   <meta charset="utf-8" />
   <link rel="stylesheet" media="all" href="css/bike.css"></link>
-  <title>Chrome ADK control</title>
+  <title>#intercon10 - Bike Streetview</title>
 </head>
 <body>
   <header>
@@ -40,19 +40,20 @@ Author: Luis Leao (luisleao@gmail.com)
     </div>
   </header>
   <section id="in">
-    <article class="speed">
-      <p>Speed<label><span id="speed">0</span>km/h</label></p>
-    </article>
-    <article class="distance">
-      <p>Distance
-         <label><span id="distance">0</span><small>m</small></label>
-      </p>
-    </article>
-    <article class="time">
-      <p>Time
-         <label><span id="time">0</span><small>s</small></label>
-      </p>
-    </article>
+
+    <div id="panorama"></div>
+    <div id="map-canvas"></div>
+
+
+    <div id="speed"><span></span></div>
+    <div id="distance"><span></span></div>
+    <div id="time"><span></span></div>
+
+
+
+  </section>
+  <script src="vendor/js/hyperlapse.min.js"></script>
+
   <script src="vendor/js/serial.js"></script>
   <script src="js/bikeserial.js"></script>
 </body>
