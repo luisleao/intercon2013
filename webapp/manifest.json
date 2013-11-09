@@ -1,0 +1,13 @@
+{
+  "name": "Bike Street View",
+  "description": "Ride a stationary bike along Google Maps routes viewing the Street View images.",
+  "version": "0.1",
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+  "icons": { "16": "img/bike-16.png", "128": "img/bike-128.png" },
+  "permissions": [ "serial" ],
+  "manifest_version": 2
+}
