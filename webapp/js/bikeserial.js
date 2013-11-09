@@ -13,11 +13,17 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-Author: Renato Mangini (mangini@chromium.org)
-Author: Luis Leao (luisleao@gmail.com)
+Author: name (email)
 **/
 
+
+var mapKey = "AIzaSyCPndpkMJ6A8UTSI4swRPiANyxReji5fKA";
+
 const SENSOR_REFRESH_INTERVAL=200;
+
+var hyperlapse;
+
+
 
 (function() {
   
@@ -43,6 +49,61 @@ const SENSOR_REFRESH_INTERVAL=200;
     console.log(msg);
     logArea.innerHTML=msg+"<br/>"+logArea.innerHTML;
   };
+
+
+  var startHyperlapse = function(){
+
+
+    hyperlapse = new Hyperlapse(document.getElementById('panorama'), {
+      width: 1280,
+      height: 720,
+      zoom: 1,
+      use_lookat: false,
+      elevation: 50,
+      max_points: 300,
+      distance_between_points: 1,
+      millis: 1000
+    });
+
+    hyperlapse.onError = function(e) {
+      console.log(e);
+    };
+
+    hyperlapse.onRouteComplete = function(e) {
+              //directions_renderer.setDirections(e.response);
+              alert( "ACABOU\nNumber of Points: "+ hyperlapse.length() );
+              hyperlapse.load();
+    };
+
+    hyperlapse.onLoadComplete = function(e) {
+      //hyperlapse.play();
+      alert("pronto para iniciar!");
+    };
+
+
+    // Google Maps API stuff here...
+    var directions_service = new google.maps.DirectionsService();
+
+    var route = {
+      request:{
+        origin: new google.maps.LatLng(37.816480000000006,-122.47825,37),
+        destination: new google.maps.LatLng(37.81195,-122.47773000000001),
+        travelMode: google.maps.DirectionsTravelMode.DRIVING
+      }
+    };
+
+    directions_service.route(route.request, function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        hyperlapse.generate( {route:response} );
+      } else {
+        console.log(status);
+      }
+    });
+
+
+
+
+  };
   
   var init=function() {
     if (!serial_lib) throw "You must include serial.js before";
@@ -50,12 +111,26 @@ const SENSOR_REFRESH_INTERVAL=200;
     flipState(true);
     btnOpen.addEventListener("click", openSerial);
     btnClose.addEventListener("click", closeSerial);
-    window.addEventListener("hashchange", changeTab);
+    //window.addEventListener("hashchange", changeTab);
     document.querySelector(".refresh").addEventListener("click", refreshPorts);
-    initADKListeners();
+
     refreshPorts();
+
+
+    //TODO: carregar hyperlapse
+    //TODO: carregar maps
+    //TODO: carregar trajeto
+    google.load("maps", "3", {other_params:'sensor=TRUE', callback: startHyperlapse }); 
+
+
+
+
+
+
+
   };
 
+/*
   var initADKListeners=function() {
 
     addEventToElements("change", ".servos input[type='range']", function(e, c) {
@@ -82,6 +157,16 @@ const SENSOR_REFRESH_INTERVAL=200;
 
     setInterval(function() { writeSerial("data"); }, SENSOR_REFRESH_INTERVAL);
   };
+
+  var convertToChars=function(i) {
+    var ch=i.toString(16);
+    if (ch.length==1) return "0"+ch;
+    return ""+ch;
+  };
+  
+
+
+  */
   
   var addEventToElements=function(eventType, selector, listener) {
     var elems=document.querySelectorAll(selector);
@@ -96,12 +181,6 @@ const SENSOR_REFRESH_INTERVAL=200;
     }
   };
 
-  var convertToChars=function(i) {
-    var ch=i.toString(16);
-    if (ch.length==1) return "0"+ch;
-    return ""+ch;
-  };
-  
   var flipState=function(deviceLocated) {
     btnOpen.disabled=!deviceLocated;
     btnClose.disabled=deviceLocated;
